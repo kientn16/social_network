@@ -1,0 +1,17 @@
+.clear {
+    clear: both;
+}
+.two-space {
+    height: 20px;
+}
+.one-space {
+    height: 10px;
+}
+.title-email {
+    color: #90949c;
+    display: block;
+    font-family: HelveticaNeue-Medium, helvetica, arial, sans-serif;
+    font-size: 14px;
+    line-height: 16px;
+    margin-top: 4px;
+}

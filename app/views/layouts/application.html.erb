@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>SecondApp</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= stylesheet_link_tag    'style', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'main', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+  <meta id="authenticity_token" value="<%= form_authenticity_token %>">
+  <script type="text/javascript">
+    $(document).ready(function(){
+      var authenticity_token = $('#authenticity_token').attr('value');
+      $.ajaxSetup({
+        data: {
+          authenticity_token: authenticity_token,
+        }
+      });
+    });
+  </script>
+</head>
+<body>
+<%= render file: "includes/nav" %>
+<div class="clear"></div>
+<div class="container-fluid">
+    <%= yield %>
+</div>
+</body>
+</html>
