@@ -7,7 +7,6 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 require 'csv'
-FriendStatus.delete_all
 
 # User
 csv_user_text = File.read(Rails.root.join('lib', 'seeds', 'seed-users.csv'))
