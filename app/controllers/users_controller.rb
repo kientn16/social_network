@@ -12,6 +12,7 @@ class UsersController < ApplicationController
   def show
     @friends = Friend.where("user_id = #{params[:id]} AND is_friend = 1")
     @favorites = Friend.where("user_id = #{params[:id]} AND is_favorite = 1")
+    @request_frends = Friend.where("friend_user_id = #{params[:id]} AND is_request_friend = 1")
     # binding.pry
   end
 

@@ -1,0 +1,33 @@
+<div class="container">
+  <% @request_frends.each do |object| %>
+      <% item = object.user %>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="well well-sm">
+            <div class="media">
+              <a class="thumbnail pull-left" href="<%= user_path(item.id)%>">
+                <%= image_tag item.image.url(:thumb), class: 'media-object' %>
+              </a>
+              <div class="media-body">
+                <h4 class="media-heading"><%= item.name %> <span class="title-email">@<%= item.email %></span></h4>
+                <p><span class="label label-info">150 Friends</span></p>
+                <p>
+                  <% if current_user && item.id == current_user.id %>
+                      <span class="label label-warning">Is Me</span>
+                  <% else %>
+                      <a href="#" <% if !current_user %> data-toggle="modal" data-target="#myModal" <% else %> onclick="un_friend(<%= item.id %>,'<%= post_un_friend_path %>')"<% end %> class="btn btn-xs btn-default"> <span id="icon-friend-<%=item.id %>" class="glyphicon glyphicon-minus"></span> Unfriend</a>
+                      <% if current_user.friends.where(["friend_user_id = ?","#{item.id}"]).first != nil && current_user.friends.where(["friend_user_id = ?","#{item.id}"]).first.is_favorite == 1 %>
+                          <a href="#" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-ban-circle"></span> Unfavorite</a>
+                      <% else %>
+                          <a href="#" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-heart"></span> Favorite</a>
+                      <%end%>
+                  <% end %>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  <% end %>
+</div>
+
