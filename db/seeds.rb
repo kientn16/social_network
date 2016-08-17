@@ -22,15 +22,3 @@ csv_user.each do |row|
   t.image = row['image']
   t.save
 end
-
-
-# Friend Status
-csv_friend_status_text = File.read(Rails.root.join('lib', 'seeds', 'seed-friend-status.csv'))
-csv_friend_status = CSV.parse(csv_friend_status_text, :headers => true, :encoding => 'ISO-8859-1')
-csv_friend_status.each do |row|
-  t = FriendStatus.new
-  t.name = row['name']
-  t.save
-end
-
-puts "There are now #{FriendStatus.count} rows in the transactions table"
