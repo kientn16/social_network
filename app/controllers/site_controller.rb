@@ -4,6 +4,10 @@ class SiteController < ApplicationController
     @search = params || {}
   end
 
+  def check_data_friend (id)
+      current_user.friends.where(["friend_user_id = ?","#{id}"]).first
+  end
+
 
 #   ajax add friend
   def add_friend
@@ -20,6 +24,7 @@ class SiteController < ApplicationController
       end
     end
   end
+
   # ajax unfiend
   def un_request
     if params[:userId].present?
