@@ -31,13 +31,8 @@ class User < ActiveRecord::Base
 
   def get_invite_by_frient_id (user_id,user_friend_id)
     friend = Friend.where("user_id = #{user_id} AND friend_user_id = #{user_friend_id}").first
-    # binding.pry
     return friend
-    # if !friend.nil?
-    #   return friend
-    # else
-    #   ni
-    # end
+
   end
 
 end
