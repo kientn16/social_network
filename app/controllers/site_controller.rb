@@ -43,6 +43,11 @@ class SiteController < ApplicationController
       if @friend.update(:is_request_friend => 0, :is_friend => 0)
         render json: @friend
       end
+
+      @friend2 = Friend.where(:friend_user_id => current_user.id, :user_id => params[:userId], :is_friend => 1).first
+      if @friend2.update(:is_request_friend => 0, :is_friend => 0)
+        render json: @friend2
+      end
     end
   end
 
@@ -71,6 +76,36 @@ class SiteController < ApplicationController
       @friend = Friend.where(:user_id => current_user.id, :friend_user_id => params[:userId]).first
       if @friend
         @friend.update(:is_favorite => 0)
+        render json: @friend
+      end
+    end
+  end
+
+#   ajax accept friend
+  def accept_friend
+
+    if params[:userId].present?
+      @friend = Friend.where(:user_id => params[:userId], :friend_user_id => current_user.id).first
+      @friend2 = Friend.where(:friend_user_id => params[:userId], :user_id => current_user.id).first
+      # binding.pry
+      if @friend
+        @friend.update(:is_friend => 1, :is_request_friend => 0)
+        if @friend2
+          @friend2.update(:is_friend => 1, :is_request_friend => 0)
+        else
+          friend = Friend.new(:user_id => current_user.id, :friend_user_id => params[:userId], :is_friend => 1)
+          friend.save
+        end
+        render json: @friend
+      end
+    end
+  end
+
+  def deny_request
+    if params[:userId].present?
+      @friend = Friend.where(:friend_user_id => current_user.id, :user_id => params[:userId], :is_request_friend => 1).first
+      # render json: @friend
+      if @friend.update(:is_request_friend => 0)
         render json: @friend
       end
     end

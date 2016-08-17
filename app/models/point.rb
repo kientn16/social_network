@@ -3,7 +3,6 @@ class Point < ActiveRecord::Base
   # params user_id: User Id; type: 1-Add Point, 2-Minus Point
 
   def self.update_point (user_id)
-
     user_id = user_id.to_i
     check = Point.find_by_user_id(user_id)
     if !check

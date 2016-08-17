@@ -10,17 +10,13 @@
               </a>
               <div class="media-body">
                 <h4 class="media-heading"><%= item.name %> <span class="title-email">@<%= item.email %></span></h4>
-                <p><span class="label label-info">150 Friends</span></p>
+                <p><span class="label label-info"><%= item.get_total_friend(item.id).size %> Friends</span></p>
                 <p>
                   <% if current_user && item.id == current_user.id %>
                       <span class="label label-warning">Is Me</span>
                   <% else %>
-                      <a href="#" <% if !current_user %> data-toggle="modal" data-target="#myModal" <% else %> onclick="un_friend(<%= item.id %>,'<%= post_un_friend_path %>')"<% end %> class="btn btn-xs btn-default"> <span id="icon-friend-<%=item.id %>" class="glyphicon glyphicon-minus"></span> Unfriend</a>
-                      <% if current_user.friends.where(["friend_user_id = ?","#{item.id}"]).first != nil && current_user.friends.where(["friend_user_id = ?","#{item.id}"]).first.is_favorite == 1 %>
-                          <a href="#" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-ban-circle"></span> Unfavorite</a>
-                      <% else %>
-                          <a href="#" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-heart"></span> Favorite</a>
-                      <%end%>
+                      <a href="#" <% if !current_user %> data-toggle="modal" data-target="#myModal" <% else %> onclick="accept_friend(<%= item.id %>,'<%= post_accept_friend_path %>')"<% end %> class="btn btn-xs btn-default"> <span id="icon-friend-<%=item.id %>" class="glyphicon glyphicon-check"></span> Accept</a>
+                      <a href="#" <% if !current_user %> data-toggle="modal" data-target="#myModal" <% else %> onclick="deny_request(<%= item.id %>,'<%= post_deny_request_path %>')"<% end %> class="btn btn-xs btn-default"> <span id="icon-friend-<%=item.id %>" class="glyphicon glyphicon-remove"></span> Deny</a>
                   <% end %>
                 </p>
               </div>

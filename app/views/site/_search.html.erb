@@ -1,0 +1,34 @@
+<div class="row" style="margin: 10px 0px;">
+  <div class="col-sm-10">
+    <form class="form-inline" id="frmSearch" action="<%= index_path %>">
+      <div class="form-group">
+        <input type="text" name="key_word" class="form-control" id="input-keyword" placeholder="Tu khoa" value="<%= params[:key_word] %>">
+      </div>
+      <input type="hidden" id="data-sort" name="sort" value="name">
+      <input type="hidden" id="data-order" name="order" value="desc">
+      <button type="submit" class="btn btn-default">Search</button>
+    </form>
+  </div>
+  <div class="col-sm-2">
+    <div class="dropdown">
+      <button class="btn btn-default dropdown-toggle glyphicon glyphicon-sort" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+        Sap xep
+        <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+        <li><a href="#" class="sort-order" data-sort="name" data-order="desc">Name DESC</a></li>
+        <li><a href="#" class="sort-order" data-sort="name" data-order="asc">Name ASC</a></li>
+        <li role="separator" class="divider"></li>
+        <li><a href="#" class="sort-order" data-sort="created_at" data-order="desc">Created DESC</a></li>
+        <li><a href="#" class="sort-order" data-sort="created_at" data-order="asc">Created ASC</a></li>
+        <li role="separator" class="divider"></li>
+        <li><a href="#" class="sort-order" data-sort="friends" data-order="desc">Friends DESC</a></li>
+        <li><a href="#" class="sort-order" data-sort="friends" data-order="asc">Friends ASC</a></li>
+        <li role="separator" class="divider"></li>
+        <li><a href="#" class="sort-order" data-sort="favorites" data-order="desc">Favorites DESC</a></li>
+        <li><a href="#" class="sort-order" data-sort="favorites" data-order="asc">Favorites ASC</a></li>
+      </ul>
+    </div>
+
+  </div>
+</div>

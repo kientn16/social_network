@@ -20,6 +20,10 @@ Rails.application.routes.draw do
   post '/site/add_favorite' => 'site#add_favorite', as: :post_add_favorite
   # un favorite ajax
   post '/site/un_favorite' => 'site#un_favorite', as: :post_un_favorite
+  # accept friend
+  post '/site/accept_friend' => 'site#accept_friend', as: :post_accept_friend
+  # deny request friend
+  post '/site/deny_request' => 'site#deny_request', as: :post_deny_request
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

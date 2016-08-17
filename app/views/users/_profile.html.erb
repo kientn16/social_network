@@ -7,7 +7,7 @@
         <div class="form-group">
           <label class="col-sm-2 control-label" for="textinput">Name</label>
           <div class="col-sm-10">
-            <input type="text" placeholder="Name" value="<%= @user.name %>" readonly class="form-control">
+            <%= f.text_field :name, class: 'form-control' %>
           </div>
         </div>
 
@@ -15,15 +15,14 @@
         <div class="form-group">
           <label class="col-sm-2 control-label" for="textinput">Email</label>
           <div class="col-sm-10">
-            <input type="text" placeholder="Address Line 2" value="<%= @user.email %>" readonly class="form-control">
+            <%= f.text_field :email, class: 'form-control' %>
           </div>
         </div>
-
         <!-- Text input-->
         <div class="form-group">
           <label class="col-sm-2 control-label" for="textinput">Address</label>
           <div class="col-sm-10">
-            <input type="text" placeholder="Address" value="<%= @user.address %>" readonly class="form-control">
+            <%= f.text_field :address, class: 'form-control' %>
           </div>
         </div>
 
@@ -31,10 +30,24 @@
         <div class="form-group">
           <label class="col-sm-2 control-label" for="textinput">Phone</label>
           <div class="col-sm-4">
-            <input type="text" placeholder="State" value="<%= @user.phone %>" readonly class="form-control">
+            <%= f.text_field :phone, class: 'form-control' %>
+          </div>
+        </div>
+        <% if current_user && current_user.id.to_i == params[:id].to_i %>
+        <!-- Text input-->
+        <div class="form-group">
+          <label class="col-sm-2 control-label" for="textinput">Image</label>
+          <div class="col-sm-4">
+            <%= f.file_field :image, class: 'form-control' %>
           </div>
         </div>
 
+        <div class="form-group">
+          <div class="col-sm-2"></div>
+          <div class="col-sm-4"><input type="submit" class="btn btn-default"></div>
+        </div>
+        <% end %>
       </fieldset>
+
     <% end %>
   </div><!-- /.col-lg-12 -->

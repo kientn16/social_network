@@ -58,3 +58,4 @@ group :test do
   gem 'guard-rspec'
   gem 'launchy'
 end
+gem 'strong_password', '~> 0.0.5'
