@@ -45,4 +45,34 @@ class SiteController < ApplicationController
       end
     end
   end
+
+#   ajax add favorite
+  def add_favorite
+    if params[:userId].present?
+      @friend = Friend.where(:user_id => current_user.id, :friend_user_id => params[:userId]).first
+      if @friend
+        @friend.update(:is_favorite => 1)
+        Point.update_point(params[:userId])
+        render json: @friend
+      else
+        @friend = Friend.new(:user_id => current_user.id, :friend_user_id => params[:userId], :is_favorite => 1)
+        # add pont
+        Point.update_point(params[:userId])
+        if @friend.save
+          render json: @friend
+        end
+      end
+    end
+  end
+
+#   ajax add favorite
+  def un_favorite
+    if params[:userId].present?
+      @friend = Friend.where(:user_id => current_user.id, :friend_user_id => params[:userId]).first
+      if @friend
+        @friend.update(:is_favorite => 0)
+        render json: @friend
+      end
+    end
+  end
 end

@@ -1,5 +1,5 @@
 <div class="container">
-  <% @friends.each do |object| %>
+  <% @favorites.each do |object| %>
       <% item = object.user_friend %>
       <div class="row">
         <div class="col-md-12">
@@ -10,7 +10,7 @@
               </a>
               <div class="media-body">
                 <h4 class="media-heading"><%= item.name %> <span class="title-email">@<%= item.email %></span></h4>
-                <p><span class="label label-info"><%= @friends.size %> Friends</span></p>
+                <p><span class="label label-info">150 Friends</span></p>
                 <p>
                   <% if current_user && item.id == current_user.id %>
                       <span class="label label-warning">Is Me</span>

@@ -28,25 +28,22 @@
               <% if current_user && user.id == current_user.id %>
                   <span class="label label-warning">Is Me</span>
               <% else %>
-
                   <!--friend-->
-                  <% if current_user && user.get_invite_by_frient_id(current_user.id,user.id) != nil && user.get_invite_by_frient_id(current_user.id,user.id).is_friend == 1 %>
-                      <a href="#" <% if !current_user %> data-toggle="modal" data-target="#myModal" <% else %> onclick="un_friend(<%= user.id %>,'<%= post_un_friend_path %>')"<% end %> class="btn btn-xs btn-default"> <span id="icon-friend-<%=user.id %>" class="glyphicon glyphicon-remove"></span> Unfriend</a>
-                  <% else %>
-                      <!--request-->
-                      <% if current_user && user.get_invite_by_frient_id(current_user.id,user.id) != nil && user.get_invite_by_frient_id(current_user.id,user.id).is_request_friend == 1 %>
-                          <a href="#" <% if !current_user %> data-toggle="modal" data-target="#myModal" <% else %> onclick="un_request(<%= user.id %>,'<%= post_un_request_path %>')"<% end %> class="btn btn-xs btn-default"><span class="glyphicon glyphicon-minus"></span> Un Request</a>
-                      <% else %>
-                          <a href="#" <% if !current_user %> data-toggle="modal" data-target="#myModal" <% else %> onclick="add_friend(<%= user.id %>,'<%= post_add_friend_path %>')"<% end %> class="btn btn-xs btn-default"> <span id="icon-friend-<%=user.id %>" class="glyphicon glyphicon-plus"></span>Add Friend</a>
-                      <%end%>
-                  <%end%>
-
-
+                <% if current_user && user.get_invite_by_frient_id(current_user.id,user.id) != nil && user.get_invite_by_frient_id(current_user.id,user.id).is_friend == 1 %>
+                    <a href="#" <% if !current_user %> data-toggle="modal" data-target="#myModal" <% else %> onclick="un_friend(<%= user.id %>,'<%= post_un_friend_path %>')"<% end %> class="btn btn-xs btn-default"> <span id="icon-friend-<%=user.id %>" class="glyphicon glyphicon-remove"></span> Unfriend</a>
+                <% else %>
+                    <!--request-->
+                    <% if current_user && user.get_invite_by_frient_id(current_user.id,user.id) != nil && user.get_invite_by_frient_id(current_user.id,user.id).is_request_friend == 1 %>
+                        <a href="#" <% if !current_user %> data-toggle="modal" data-target="#myModal" <% else %> onclick="un_request(<%= user.id %>,'<%= post_un_request_path %>')"<% end %> class="btn btn-xs btn-default"><span class="glyphicon glyphicon-minus"></span> Un Request</a>
+                    <% else %>
+                        <a href="#" <% if !current_user %> data-toggle="modal" data-target="#myModal" <% else %> onclick="add_friend(<%= user.id %>,'<%= post_add_friend_path %>')"<% end %> class="btn btn-xs btn-default"> <span id="icon-friend-<%=user.id %>" class="glyphicon glyphicon-plus"></span>Add Friend</a>
+                    <%end%>
+                <%end%>
 
                 <% if current_user && user.get_invite_by_frient_id(current_user.id,user.id) != nil && user.get_invite_by_frient_id(current_user.id,user.id).is_favorite == 1 %>
-                      <a href="#" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-ban-circle"></span> Unfavorite</a>
+                    <a href="#" <% if !current_user %> data-toggle="modal" data-target="#myModal" <% else %> onclick="un_favorite(<%= user.id %>,'<%= post_un_favorite_path %>')"<% end %> class="btn btn-xs btn-default"><span class="glyphicon glyphicon-ban-circle"></span> Unfavorite</a>
                 <% else %>
-                      <a href="#" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-heart"></span> Favorite</a>
+                    <a href="#" <% if !current_user %> data-toggle="modal" data-target="#myModal" <% else %> onclick="add_favorite(<%= user.id %>,'<%= post_add_favorite_path %>')"<% end %> class="btn btn-xs btn-default"><span class="glyphicon glyphicon-heart"></span> Favorite</a>
                 <%end%>
 
               <% end %>

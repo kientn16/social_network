@@ -11,6 +11,7 @@ class UsersController < ApplicationController
   # GET /users/1.json
   def show
     @friends = Friend.where("user_id = #{params[:id]} AND is_friend = 1")
+    @favorites = Friend.where("user_id = #{params[:id]} AND is_favorite = 1")
     # binding.pry
   end
 

@@ -13,3 +13,12 @@
 /tmp
 log
 .idea
+.DS_Store
+.idea/workspace.xml
+app/.DS_Store
+app/assets/.DS_Store
+app/assets/javascripts/.DS_Store
+app/assets/stylesheets/.DS_Store
+public/system/
+vendor/.DS_Store
+vendor/assets/.DS_Store
