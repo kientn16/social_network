@@ -14,7 +14,7 @@
             <h4 class="media-heading"><%= user.name %> <span class="title-email">@<%= user.email %></span></h4>
             <p>
               <span class="label label-info"><%= user.get_total_friend(user.id).size %> Friends</span>
-
+              <span class="label label-success"><%= get_point(user.id) %> Favorites</span>
             </p>
 
             <p>
@@ -26,7 +26,7 @@
                     <a href="#" <% if !current_user %> data-toggle="modal" data-target="#myModal" <% else %> onclick="un_friend(<%= user.id %>,'<%= post_un_friend_path %>')"<% end %> class="btn btn-xs btn-default"> <span id="icon-friend-<%=user.id %>" class="glyphicon glyphicon-remove"></span> Unfriend</a>
                       <!--favorite-->
                     <% if current_user && user.get_invite_by_frient_id(current_user.id,user.id) != nil && user.get_invite_by_frient_id(current_user.id,user.id).is_favorite == 1 %>
-                        <a href="#" <% if !current_user %> data-toggle="modal" data-target="#myModal" <% else %> onclick="un_favorite(<%= user.id %>,'<%= post_un_favorite_path %>')"<% end %> class="btn btn-xs btn-default"><span class="glyphicon glyphicon-ban-circle"></span> Unfavorite</a>
+                        <label class="label label-danger"><span class="glyphicon glyphicon-ok"></span> Favorite</label>
                     <% else %>
                         <a href="#" <% if !current_user %> data-toggle="modal" data-target="#myModal" <% else %> onclick="add_favorite(<%= user.id %>,'<%= post_add_favorite_path %>')"<% end %> class="btn btn-xs btn-default"><span class="glyphicon glyphicon-heart"></span> Favorite</a>
                     <%end%>

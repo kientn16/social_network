@@ -1,7 +1,11 @@
 module ApplicationHelper
-  def get_status_friend (friend_user_id)
-    @data = current_user.friends.where(["friend_user_id = ?","#{friend_user_id}"]).first
-    # binding.pry
+  def get_point (user_id)
+    @data = Point.find_by_user_id(user_id)
+    if @data
+      return @data.point
+    else
+      return 0
+    end
   end
 
 end

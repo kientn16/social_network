@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
-  # include ActiveModel::Validations
+  has_one :point, :class_name => 'Point'
+  delegate :point, to: :point, prefix: true, allow_nil: true
   has_many :friends
-  belongs_to :point
   # validate :password_complexity
 
   validates_presence_of :name, :email, :address, :phone
@@ -28,24 +28,14 @@ class User < ActiveRecord::Base
 
   def self.search(params)
     if params[:key_word]
-      # users = User.all
-      # # keyword
-      # users = users.where(["name LIKE ? OR address LIKE ? OR phone LIKE ? OR email LIKE ?",
-      #                      "%#{params[:key_word].strip}%",
-      #                      "%#{params[:key_word].strip}%",
-      #                      "%#{params[:key_word].strip}%",
-      #                      "%#{params[:key_word].strip}%"]) if params[:key_word].present?
-
-      # sort
-      # return users
-    #   binding.pry
+      @search_keyword = ["name LIKE ? OR address LIKE ? OR phone LIKE ? OR email LIKE ?", "%#{params[:key_word].strip}%", "%#{params[:key_word].strip}%", "%#{params[:key_word].strip}%", "%#{params[:key_word].strip}%"]
       case params[:sort]
         when "friends"
-          @condition = "AND FL.is_friend = 1 AND FL2.is_friend = 1 GROUP BY users.id ORDER BY COUNT(DISTINCT FL2.id) #{params[:order]}"
           users = User.joins("LEFT JOIN friends FL ON users.id = FL.user_id
-                    LEFT JOIN friends FL2 ON FL.friend_user_id = FL2.user_id AND FL2.friend_user_id = users.id
+                              LEFT JOIN friends FL2 ON
+                              FL.friend_user_id = FL2.user_id AND FL2.friend_user_id = users.id
                     WHERE (name LIKE '%#{params[:key_word].strip}%' OR address LIKE '%#{params[:key_word].strip}%' OR phone LIKE '%#{params[:key_word].strip}%' OR email LIKE '%#{params[:key_word].strip}%')
-                          #{@condition}
+                           GROUP BY users.id ORDER BY COUNT(DISTINCT FL2.id) #{params[:order]}
                              ")
 
         when "favorites"
@@ -54,25 +44,16 @@ class User < ActiveRecord::Base
                                #{@condition} ")
         when "name"
           users = User.all
-          users = users.where(["name LIKE ? OR address LIKE ? OR phone LIKE ? OR email LIKE ?",
-                             "%#{params[:key_word].strip}%",
-                             "%#{params[:key_word].strip}%",
-                             "%#{params[:key_word].strip}%",
-                             "%#{params[:key_word].strip}%"]) if params[:key_word].present?
+          users = users.where(@search_keyword) if params[:key_word].present?
           users = users.order("users.name #{params[:order]}")
         when "created_at"
           users = User.all
-          users = users.where(["name LIKE ? OR address LIKE ? OR phone LIKE ? OR email LIKE ?",
-                               "%#{params[:key_word].strip}%",
-                               "%#{params[:key_word].strip}%",
-                               "%#{params[:key_word].strip}%",
-                               "%#{params[:key_word].strip}%"]) if params[:key_word].present?
+          users = users.where(@search_keyword) if params[:key_word].present?
           users = users.order("users.created_at #{params[:order]}")
       end
-      # binding.pry
       return users
     else
-      User.all
+      User.all.order("id DESC")
     end
   end
 
@@ -84,5 +65,6 @@ class User < ActiveRecord::Base
   def get_total_friend (user_id)
     Friend.where("user_id = #{user_id} AND is_friend = 1")
   end
+
 
 end

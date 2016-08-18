@@ -17,7 +17,7 @@
                   <% else %>
                       <a href="#" <% if !current_user %> data-toggle="modal" data-target="#myModal" <% else %> onclick="un_friend(<%= item.id %>,'<%= post_un_friend_path %>')"<% end %> class="btn btn-xs btn-default"> <span id="icon-friend-<%=item.id %>" class="glyphicon glyphicon-minus"></span> Unfriend</a>
                       <% if current_user && item.get_invite_by_frient_id(current_user.id,item.id) != nil && item.get_invite_by_frient_id(current_user.id,item.id).is_favorite == 1 %>
-                          <a href="#" <% if !current_user %> data-toggle="modal" data-target="#myModal" <% else %> onclick="un_favorite(<%= item.id %>,'<%= post_un_favorite_path %>')"<% end %> class="btn btn-xs btn-default"><span class="glyphicon glyphicon-ban-circle"></span> Unfavorite</a>
+                          <label class="label label-danger"><span class="glyphicon glyphicon-ok"></span> Favorite</label>
                       <% else %>
                           <a href="#" <% if !current_user %> data-toggle="modal" data-target="#myModal" <% else %> onclick="add_favorite(<%= item.id %>,'<%= post_add_favorite_path %>')"<% end %> class="btn btn-xs btn-default"><span class="glyphicon glyphicon-heart"></span> Favorite</a>
                       <%end%>

@@ -9,10 +9,8 @@
 
 # Ignore all logfiles and tempfiles.
 /tmp
-.idea
 log
 .DS_Store
-.idea/workspace.xml
 app/.DS_Store
 app/assets/.DS_Store
 app/assets/javascripts/.DS_Store
