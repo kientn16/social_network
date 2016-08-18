@@ -21,3 +21,4 @@ csv_user.each do |row|
   t.image = row['image']
   t.save
 end
+puts "There are now #{User.count} rows in the transactions table"

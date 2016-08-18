@@ -34,13 +34,6 @@ ActiveRecord::Schema.define(version: 20160816054659) do
 
   add_index "points", ["user_id"], name: "index_points_on_user_id", using: :btree
 
-  create_table "posts", force: :cascade do |t|
-    t.string   "title",       limit: 255
-    t.text     "description", limit: 65535
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
-  end
-
   create_table "users", force: :cascade do |t|
     t.string   "name",               limit: 255
     t.string   "email",              limit: 255

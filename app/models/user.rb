@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  include ActiveModel::Validations
+  # include ActiveModel::Validations
   has_many :friends
   belongs_to :point
   # validate :password_complexity
