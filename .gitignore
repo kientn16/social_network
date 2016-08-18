@@ -9,6 +9,7 @@
 
 # Ignore all logfiles and tempfiles.
 /tmp
+.idea
 log
 .DS_Store
 app/.DS_Store
