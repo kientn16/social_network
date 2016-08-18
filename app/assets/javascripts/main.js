@@ -2,13 +2,14 @@
  * Created by yamon on 8/16/16.
  */
 $(document).ready(function(){
-    $('body').on('click','.sort-order', function(event){
+    $(document).on('click','.sort-order', function(event){
         event.preventDefault();
         var dataSort = $(this).attr('data-sort');
         var dataOrder = $(this).attr('data-order');
 
         $("#data-sort").val(dataSort);
         $("#data-order").val(dataOrder);
+
         $("form#frmSearch").submit();
     });
 });

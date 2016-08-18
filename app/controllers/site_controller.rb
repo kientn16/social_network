@@ -12,15 +12,9 @@ class SiteController < ApplicationController
 #   ajax add friend
   def add_friend
     if params[:userId].present?
-      @friend = Friend.where(:user_id => current_user.id, :friend_user_id => params[:userId], :is_request_friend => 0).first
-      if @friend
-        @friend.update(:is_request_friend => 1)
-        render json: @friend
-      else
-        @friend = Friend.new(:user_id => current_user.id, :friend_user_id => params[:userId], :is_request_friend => 1)
-        if @friend.save
-          render json: @friend
-        end
+      @result = Friend.add_friend(params[:userId], current_user.id)
+      if @result
+        render json: @result
       end
     end
   end
@@ -28,25 +22,18 @@ class SiteController < ApplicationController
   # ajax unfiend
   def un_request
     if params[:userId].present?
-      @friend = Friend.where(:user_id => current_user.id, :friend_user_id => params[:userId], :is_request_friend => 1).first
-      # render json: @friend
-      if @friend.update(:user_id => current_user.id, :friend_user_id => params[:userId], :is_request_friend => 0)
-        render json: @friend
+      @result = Friend.un_request(params[:userId], current_user.id)
+      if @result
+        render json: @result
       end
     end
   end
 
   def un_friend
     if params[:userId].present?
-      @friend = Friend.where(:user_id => current_user.id, :friend_user_id => params[:userId], :is_friend => 1).first
-      # binding.pry
-      if @friend.update(:is_request_friend => 0, :is_friend => 0)
-        render json: @friend
-      end
-
-      @friend2 = Friend.where(:friend_user_id => current_user.id, :user_id => params[:userId], :is_friend => 1).first
-      if @friend2.update(:is_request_friend => 0, :is_friend => 0)
-        render json: @friend2
+      @result = Friend.un_friend(params[:userId], current_user.id)
+      if @result
+        render json: @result
       end
     end
   end
@@ -54,18 +41,9 @@ class SiteController < ApplicationController
 #   ajax add favorite
   def add_favorite
     if params[:userId].present?
-      @friend = Friend.where(:user_id => current_user.id, :friend_user_id => params[:userId]).first
-      if @friend
-        @friend.update(:is_favorite => 1)
-        Point.update_point(params[:userId])
-        render json: @friend
-      else
-        @friend = Friend.new(:user_id => current_user.id, :friend_user_id => params[:userId], :is_favorite => 1)
-        # add pont
-        Point.update_point(params[:userId])
-        if @friend.save
-          render json: @friend
-        end
+      @result = Friend.add_favorite(params[:userId], current_user.id)
+      if @result
+        render json: @result
       end
     end
   end
@@ -73,40 +51,28 @@ class SiteController < ApplicationController
 #   ajax add favorite
   def un_favorite
     if params[:userId].present?
-      @friend = Friend.where(:user_id => current_user.id, :friend_user_id => params[:userId]).first
-      if @friend
-        @friend.update(:is_favorite => 0)
-        render json: @friend
+      @result = Friend.un_favorite(params[:userId], current_user.id)
+      if @result
+        render json: @result
       end
     end
   end
 
 #   ajax accept friend
   def accept_friend
-
     if params[:userId].present?
-      @friend = Friend.where(:user_id => params[:userId], :friend_user_id => current_user.id).first
-      @friend2 = Friend.where(:friend_user_id => params[:userId], :user_id => current_user.id).first
-      # binding.pry
-      if @friend
-        @friend.update(:is_friend => 1, :is_request_friend => 0)
-        if @friend2
-          @friend2.update(:is_friend => 1, :is_request_friend => 0)
-        else
-          friend = Friend.new(:user_id => current_user.id, :friend_user_id => params[:userId], :is_friend => 1)
-          friend.save
-        end
-        render json: @friend
+      @result = Friend.accept_friend(params[:userId], current_user.id)
+      if @result
+        render json: @result
       end
     end
   end
 
   def deny_request
     if params[:userId].present?
-      @friend = Friend.where(:friend_user_id => current_user.id, :user_id => params[:userId], :is_request_friend => 1).first
-      # render json: @friend
-      if @friend.update(:is_request_friend => 0)
-        render json: @friend
+      @result = Friend.deny_friend(params[:userId], current_user.id)
+      if @result
+        render json: @result
       end
     end
   end
