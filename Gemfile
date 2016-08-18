@@ -51,11 +51,14 @@ gem 'will_paginate-bootstrap'
 group :test, :development do
   gem 'rspec-rails', '~> 3.5'
   gem 'factory_girl_rails'
+  gem 'capybara'
 end
 group :test do
   gem "faker", "~> 1.4.3"
   gem 'capybara'
   gem 'guard-rspec'
   gem 'launchy'
+  gem 'database_cleaner'
+  gem 'shoulda-matchers', '3.0.1'
 end
 gem 'strong_password', '~> 0.0.5'

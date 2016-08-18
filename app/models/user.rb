@@ -1,6 +1,5 @@
 class User < ActiveRecord::Base
-  has_one :point, :class_name => 'Point'
-  delegate :point, to: :point, prefix: true, allow_nil: true
+  has_one :point
   has_many :friends
   # validate :password_complexity
 
