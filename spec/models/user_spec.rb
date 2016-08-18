@@ -28,12 +28,27 @@ RSpec.describe User, type: :model do
 
 #   rspec function search
   describe ".search(params)" do
-    context "search" do
-      # kientn = FactoryGirl.create(:user, name: "Kien", email: "kientn@gmail.com", address: "Sai son - ha noi", password: "Trankien1691", image: File.new(Rails.root + 'spec/fixtures/images/rails.png'))
-      kientn = FactoryGirl.create(:user)
-      params = { key_word: "gmail.com", sort: "name", order: "asc" }
-      user = User.search(params) || {}
-      expect(user).to eq nil
+    before :each do
+      @alex = FactoryGirl.create(:user, name: "Alex", email: "alex@gmail.com", address: "Sai son - ha noi", password: "Trankien1691", image: File.new(Rails.root + 'spec/fixtures/images/rails.png'))
+      @kien = FactoryGirl.create(:user, name: "Kien", email: "kien@gmail.com", address: "Sai son - ha noi", password: "Trankien1691", image: File.new(Rails.root + 'spec/fixtures/images/rails.png'))
+      @khanh = FactoryGirl.create(:user, name: "Khanh", email: "kien123@gmail.com", address: "Sai son - ha noi", password: "Trankien1691", image: File.new(Rails.root + 'spec/fixtures/images/rails.png'))
+    end
+    context "with matching letters" do
+      it "search home page params key_word: K, sort: name, order: asc" do
+        # kientn = FactoryGirl.create(:user)
+        params = { key_word: "K", sort: "name", order: "asc" }
+        user = User.search(params) || {}
+        expect(user).to eq [@khanh,@kien]
+      end
+    end
+
+    context "with non-matching letters" do
+      it "not match with params key_word: K, sort: name, order: asc" do
+        # kientn = FactoryGirl.create(:user)
+        params = { key_word: "K", sort: "name", order: "asc" }
+        user = User.search(params) || {}
+        expect(user).not_to include @alex
+      end
     end
   end
 
