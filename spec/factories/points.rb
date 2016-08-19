@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :point do
-    user nil
+    user_id nil
     point 1
   end
 end
